@@ -1,11 +1,10 @@
 package com.medi.meditrack.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.medi.meditrack.screen.GreetingPillScreen
+import com.medi.meditrack.screen.AddPillScreen
 import com.medi.meditrack.screen.GreetingScreen
 
 
@@ -33,7 +32,7 @@ fun AppNavHost() {
         }
 
         composable(Screen.GreatingPill.string) {
-            GreetingPillScreen(
+            AddPillScreen(
                 onBack = {
                     navController.popBackStack()
                 }
