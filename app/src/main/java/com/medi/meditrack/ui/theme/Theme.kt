@@ -27,15 +27,16 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BluePrimary,      // кнопки "Ok", ссылки
-    secondary = IconGray,       // иконки, второстепенные элементы
-    tertiary = PillOrange,      // иконка таблетки
-    background = White,         // фон всего приложения
-    onBackground = Black,       // текст на фоне
-    surface = LightBlue,        // карточки, панель приветствия
-    onSurface = DarkBlueText,          // текст на карточках
-    outline = LightBlue         // рамки, границы
+    primary = BluePrimary, // "Ok" buttons, links
+    secondary = IconGray, // icons, secondary elements
+    tertiary = PillOrange, // pill icon
+    background = White, // background of the entire application
+    onBackground = Black, // text on the background
+    surface = LightBlue, // cards, welcome panel
+    onSurface = DarkBlueText, // text on cards
+    outline = LightBlue // frames, borders
 )
+
 @Composable
 fun MediTrackTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
