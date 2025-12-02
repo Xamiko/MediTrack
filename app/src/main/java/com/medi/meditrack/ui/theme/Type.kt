@@ -13,12 +13,12 @@ val RobotoMedium = FontFamily(
 )
 
 val AppTypography = Typography(
-    bodyLarge = androidx.compose.ui.text.TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = RobotoMedium,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
     ),
-    titleLarge = androidx.compose.ui.text.TextStyle(
+    titleLarge = TextStyle(
         fontFamily = RobotoMedium,
         fontWeight = FontWeight.Medium,
         fontSize = 22.sp

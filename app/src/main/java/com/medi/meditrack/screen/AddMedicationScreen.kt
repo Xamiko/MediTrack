@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -32,34 +31,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
+
+import com.medi.meditrack.screen.viewmodel.AddPillViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddPillScreen(onBack: () -> Unit) {
+fun AddMedicationScreen(onBack: () -> Unit) {
+    val viewModel: AddPillViewModel = hiltViewModel()
 
-    val medicationName = remember { mutableStateOf("") }
-    var dosage = remember { mutableStateOf("") }
-    var frequency = remember { mutableStateOf("One a Day") }
-    var startDate = remember { mutableStateOf("") }
-    var endDate = remember { mutableStateOf("") }
+
+    val medicationName = viewModel.medicationName
+    val dosage = viewModel.dosage
+    val selectedFrequency = viewModel.selectedFrequency
+
+
+
+    //val selectedDaysOfWeek = viewModel.selectedDaysOfWeek
+    //val frequencyOptions = viewModel.frequencyOptions
+    //val daysOfWeek = viewModel.daysOfWeek
 
     val frequencyOptions = listOf("Once a Day", "Twice a Day", "Three Times a Day", "As needed")
-    val selectedFrequency = remember { mutableStateOf("") }
+
 
     val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-    val selectedDaysOfWeek = remember { mutableStateOf("") }
+   val selectedDaysOfWeek = remember { mutableStateOf("") }
 
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -85,7 +91,7 @@ fun AddPillScreen(onBack: () -> Unit) {
                     textState = medicationName,
                     label = "Type of medication",
                     placeholder = "e.g, Lisinopril",
-                    helperText = "Please specify the name of the medication you are tracking."
+                    helperText = "Please specify the name of the medication you are tracking." ,
                 )
                 // dosage
                 TextField(
@@ -97,7 +103,8 @@ fun AddPillScreen(onBack: () -> Unit) {
                 FrequentLazyColumn(option = frequencyOptions, selectedItem = selectedFrequency)
                 FrequentLazyColumn(option = daysOfWeek, selectedItem = selectedDaysOfWeek)
 
-                BottomButton("Save Medication", "Cancel", onBack)
+
+
             }
         }
     )
@@ -137,7 +144,7 @@ fun TextField(
                     .fillMaxWidth()
                     .padding(16.dp),
                 textStyle = TextStyle(
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = Color.Black,
                     fontSize = 18.sp
                 ),
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary)
@@ -157,33 +164,42 @@ fun TextField(
         Text(modifier = Modifier, style = MaterialTheme.typography.bodyLarge, text = helperText, color = MaterialTheme.colorScheme.onSurface)
     }
 }
-
 @Composable
 fun BottomButton(
-    textSaveMedication : String,
-    textCancel : String,
     onBack: () -> Unit
 ) {
+
     Row(modifier = Modifier.fillMaxWidth()) {
         Button(
             modifier = Modifier
                 .weight(1f)
-                .padding(12.dp, 0.dp, 4.dp, 0.dp,),
+                .padding(12.dp, 0.dp, 4.dp, 0.dp),
             shape = RoundedCornerShape(8.dp),
-            border = BorderStroke(2.dp, MaterialTheme.colorScheme.onBackground, ),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background, contentColor = MaterialTheme.colorScheme.onBackground),
-            onClick = {}) { Text(text = "Cancel") }
+            border = BorderStroke(2.dp, MaterialTheme.colorScheme.onBackground),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground
+            ),
+            onClick = { /**/ }) {
+            Text(text = "Cancel")
+        }
+
         Button(
             modifier = Modifier
                 .weight(1f)
-                .padding(4.dp, 0.dp, 12.dp, 0.dp,),
+                .padding(4.dp, 0.dp, 12.dp, 0.dp),
             shape = RoundedCornerShape(8.dp),
-            border = BorderStroke(2.dp, MaterialTheme.colorScheme.onBackground, ),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground, contentColor = MaterialTheme.colorScheme.background),
-            onClick = {onBack()}) {Text(text = "Save Medication") }
+            border = BorderStroke(2.dp, MaterialTheme.colorScheme.onBackground),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.onBackground,
+                contentColor = MaterialTheme.colorScheme.background
+            ),
+            onClick = { /**/ }) {
+            Text("Save")
+        }
     }
-
 }
+
 
 
 @Composable
@@ -215,7 +231,7 @@ fun FrequentLazyColumn(
                         .clickable { selectedItem.value = item },
                     colors = CardDefaults.cardColors(
                         containerColor = if (selectedItem.value == item)
-                            MaterialTheme.colorScheme.tertiary // when selected
+                            MaterialTheme.colorScheme.tertiary // selected
                         else
                             MaterialTheme.colorScheme.primary  // default state
                     )

@@ -15,20 +15,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.medi.meditrack.R
 
 
 @Composable
-fun GreetingScreen(onNext: () -> Unit) {
+fun WelcomeScreen(onNext: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
         verticalArrangement = Arrangement.Center,
@@ -54,9 +51,6 @@ fun GreetingScreen(onNext: () -> Unit) {
 
 @Preview(showBackground = false)
 @Composable
-fun GreetingScreenPreview() {
-
-
-    GreetingScreen(onNext = {})
-
+fun WelcomeScreenPreview() {
+    WelcomeScreen(onNext = {})
 }
