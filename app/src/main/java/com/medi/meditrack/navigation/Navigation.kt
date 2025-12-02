@@ -4,13 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.medi.meditrack.screen.AddPillScreen
-import com.medi.meditrack.screen.GreetingScreen
+import com.medi.meditrack.navigation.Screen.AddMedicationScreen
+import com.medi.meditrack.screen.AddMedicationScreen
+import com.medi.meditrack.screen.WelcomeScreen
 
 
 sealed class Screen(val string: String) {
-    object Greating: Screen("greating")
-    object GreatingPill: Screen("greatingPill")
+    object WelcomeScreen: Screen("welcomeScreen")
+    object AddMedicationScreen: Screen("addMedicationScreen")
 
 }
 
@@ -21,18 +22,18 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Greating.string
+        startDestination = Screen.WelcomeScreen.string
     ) {
-        composable(Screen.Greating.string) {
-            GreetingScreen(
+        composable(Screen.WelcomeScreen.string){
+            WelcomeScreen(
                 onNext = {
-                    navController.navigate(Screen.GreatingPill.string)
+                    navController.navigate(AddMedicationScreen.string)
                 }
             )
         }
 
-        composable(Screen.GreatingPill.string) {
-            AddPillScreen(
+        composable(AddMedicationScreen.string) {
+            AddMedicationScreen(
                 onBack = {
                     navController.popBackStack()
                 }
