@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPillViewModel @Inject constructor(
+class AddMedicationScreenViewModel @Inject constructor(
     private val repository: MedicationRepository
 ) : ViewModel() {
 
@@ -22,7 +22,7 @@ class AddPillViewModel @Inject constructor(
     val frequencyOptions = listOf("Once a Day", "Twice a Day", "Three Times a Day", "As needed")
     val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
-    fun saveMedication(onSaved: () -> Unit) {
+    fun saveMedication() {
         viewModelScope.launch {
             try {
                 repository.insertMedication(
@@ -32,7 +32,7 @@ class AddPillViewModel @Inject constructor(
                         frequency = selectedFrequency.value
                     )
                 )
-                onSaved()
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
